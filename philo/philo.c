@@ -6,7 +6,7 @@
 /*   By: ytaqsi <ytaqsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:16:31 by ytaqsi            #+#    #+#             */
-/*   Updated: 2023/06/24 18:54:24 by ytaqsi           ###   ########.fr       */
+/*   Updated: 2023/03/01 14:10:15 by ytaqsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	checkmeals(t_list *t, int *c)
 	while (t)
 	{
 		pthread_mutex_lock(&t->lsattime);
-		if (t->cp >= t->all->tmeat)
+		if (t->cp == t->all->tmeat)
 			(*c)++;
 		pthread_mutex_unlock(&t->lsattime);
 		t = t->next;
@@ -66,6 +66,7 @@ void	death(t_all	*tmp)
 			ft_prints(tmp->head, "died");
 			break ;
 		}
+		pthread_mutex_unlock(&tmp->head->lsattime);
 		tmp->head = tmp->head->next;
 	}
 }
